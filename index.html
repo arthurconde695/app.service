@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGPT PT2</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <label for="prompt">Insira seu prompt</label>
+        <textarea cols="40" rows="10" name="prompt" id="prompt"></textarea>
+        
+        <label for="resposta">Resposta IA</label>
+        <textarea cols="40" rows="10" name="resposta" id="resposta" readonly></textarea>
+        
+        <input type="button" value="Enviar" onclick="run()">
+    </div>
+
+    <body>
+      <script type="importmap">
+          {
+            "imports": {
+              "@google/generative-ai": "https://esm.run/@google/generative-ai"
+            }
+          }
+        </script>
+      <script type="module">
+        import { GoogleGenerativeAI } from "@google/generative-ai";
+  
+        // Fetch your API_KEY
+        const API_KEY = "AIzaSyB-BZicHWUgPzWriX8DhEf4Ap4x6lrNB3o";
+  
+        // Access your API key (see "Set up your API key" above)
+        const genAI = new GoogleGenerativeAI(API_KEY);
+  
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"});
+  
+        async function run() {
+           const prompt = "Gemini, Você é um vendedor de carros de alta performance, e fala somente sobre esse assunto"
+  
+           const result = await model.generateContent(prompt);
+           const response = await result.response;
+           const text = response.text();
+  
+    document.getElementById("resposta").value = text;
+    console.log(text);
+  }
+  run();
+    </script>
+    
+  </body>
+  </html>
